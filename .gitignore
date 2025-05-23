@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.log
+*.sqlite3
+*.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# PySpark
+.metastore_db/
+spark-warehouse/
+
+# Virtual environments
+venv/
+.env/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Parquet & Data files
+data/raw/
+data/processed/
+*.parquet
+*.csv
+*.json
+
+# React (Node.js)
+node_modules/
+build/
+dist/
+
+# Docker
+*.pid
+*.sock
+
+# PyCharm
+.idea/
+
+# Coverage
+htmlcov/
+coverage.xml
+.cache/
+
+# Logs
+*.log
+logs/
+
+# System
+Thumbs.db
