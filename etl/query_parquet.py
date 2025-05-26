@@ -6,7 +6,7 @@ spark = SparkSession.builder.appName("Query Listings").getOrCreate()
 
 # 2. Load the Parquet file
 df = spark.read.parquet("data/processed/listings.parquet")
-
+ 
 # 3. Listings per location
 print("📍 Listings per location:")
 df.groupBy("location").count().orderBy("count", ascending=False).show(truncate=False)

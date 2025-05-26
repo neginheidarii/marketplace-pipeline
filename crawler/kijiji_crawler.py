@@ -39,7 +39,7 @@ def extract_kijiji_listings(soup):
 
     return listings
 
-
+ 
 
 # Save data to JSON file
 if __name__ == "__main__":

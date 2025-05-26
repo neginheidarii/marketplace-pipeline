@@ -43,7 +43,7 @@ def get_cheapest():
     df = df.orderBy("price_num").select("title", "price_num", "location", "url")
     listings = df.limit(10).toJSON().map(lambda j: json.loads(j)).collect()
     return {"results": listings}
-
+ 
 
 from fastapi import Query
 

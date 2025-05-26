@@ -8,7 +8,7 @@ spark = SparkSession.builder \
 
 # Read the JSON file
 df = spark.read.option("multiLine", True).json("data/raw/listings.json")
-
+ 
 # Show schema and data 
 df.printSchema()
 df.show(truncate=False)
