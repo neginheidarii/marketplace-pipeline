@@ -6,6 +6,7 @@ import os
 from fastapi import Query
 from typing import Optional
 from fastapi.middleware.cors import CORSMiddleware
+from api.hive_queries import get_hive_data
 
 
 
@@ -67,3 +68,8 @@ def get_listings_by_location(
     df = df.orderBy("price_num")
     listings = df.select("title", "price_num", "location", "url").limit(20).toJSON().map(lambda j: json.loads(j)).collect()
     return {"results": listings}
+
+
+@app.get("/hive/tables")
+def list_hive_tables():
+    return {"tables": get_hive_data()}
