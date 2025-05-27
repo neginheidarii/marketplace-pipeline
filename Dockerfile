@@ -9,12 +9,14 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 
 # Install Spark (you can change the version if needed)
-# Install Spark (you can change the version if needed)
 ENV SPARK_VERSION=3.5.1
-RUN curl -fSL "https://downloads.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz" \
-    | tar -xz -C /opt/
+RUN curl -fSL "https://archive.apache.org/dist/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz" \
+    -o /tmp/spark.tgz \
+ && tar -xzf /tmp/spark.tgz -C /opt/ \
+ && rm /tmp/spark.tgz
 ENV SPARK_HOME=/opt/spark-${SPARK_VERSION}-bin-hadoop3
 ENV PATH=$SPARK_HOME/bin:$PATH
+
 
 
 # Set environment variable to access Hive Metastore
