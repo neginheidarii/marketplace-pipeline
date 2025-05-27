@@ -1,23 +1,31 @@
-# Use an official Python image with Java for Spark
 FROM openjdk:17-slim
 
-# Set work directory
+# Install Python, pip, and dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-venv \
+    curl \
+    && apt-get clean
+
+# Install Spark (you can change the version if needed)
+ENV SPARK_VERSION=3.5.1
+RUN curl -sL https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz | tar -xz -C /opt/
+ENV SPARK_HOME=/opt/spark-${SPARK_VERSION}-bin-hadoop3
+ENV PATH=$SPARK_HOME/bin:$PATH
+
+# Set environment variable to access Hive Metastore
+ENV HIVE_METASTORE_URI=thrift://hive-metastore:9083
+
 WORKDIR /app
 
-# Install pip and required system packages
-RUN apt-get update && \
-    apt-get install -y python3-pip python3-venv && \
-    apt-get clean
-
-# Copy requirements file and install
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
-# Copy all project files
 COPY . .
 
-# Expose port
-EXPOSE 8000
+# Set PYSPARK-related environment vars
+ENV PYSPARK_PYTHON=python3
+ENV PYSPARK_DRIVER_PYTHON=python3
 
-# Run FastAPI app
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
