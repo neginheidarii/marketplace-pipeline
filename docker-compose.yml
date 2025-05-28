@@ -49,5 +49,19 @@ services:
     networks:
       - hive-net
 
+  marketplace-api:
+    build: .
+    container_name: marketplace-api
+    ports:
+      - "8000:8000"
+    networks:
+      - hive-net
+    depends_on:
+      - spark
+    volumes:
+      - ./data:/app/data
+
+    
+
 networks:
   hive-net:
