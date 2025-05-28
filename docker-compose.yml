@@ -38,5 +38,16 @@ services:
     networks:
       - hive-net
 
+  spark:
+    image: bitnami/spark:3.5.1
+    container_name: spark
+    environment:
+      - SPARK_MODE=master
+    ports:
+      - "7077:7077"   
+      - "8080:8080"   
+    networks:
+      - hive-net
+
 networks:
   hive-net:
