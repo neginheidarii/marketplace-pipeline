@@ -16,6 +16,7 @@ spark-warehouse/
 # Virtual environments
 venv/
 .env/
+venv310/
 
 # VSCode
 .vscode/
