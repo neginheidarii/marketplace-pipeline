@@ -7,6 +7,7 @@ from fastapi import Query
 from typing import Optional
 from fastapi.middleware.cors import CORSMiddleware
 from api.hive_queries import get_hive_data
+from fastapi.responses import FileResponse
 
 
 
@@ -30,7 +31,11 @@ def favicon():
 
 
 # Initialize Spark session once (not per request)
-spark = SparkSession.builder.appName("Marketplace API").getOrCreate()
+spark = SparkSession.builder \
+    .appName("Marketplace API") \
+    .master("spark://spark:7077") \
+    .getOrCreate()
+
 
 @app.get("/")
 def read_root():
