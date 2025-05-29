@@ -3,7 +3,7 @@ uvicorn
 pyspark
 pandas
 pyarrow
-pyhive[hive]
+pyhive
 thrift
 sasl
 thrift-sasl
