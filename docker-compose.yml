@@ -1,11 +1,20 @@
 version: "3.8"
 
 services:
+  postgres:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=hive
+      - POSTGRES_PASSWORD=hive
+      - POSTGRES_DB=metastore
+    ports:
+      - "5432:5432"
+    networks:
+      - hive-net
+
   hive-metastore:
     image: bde2020/hive:2.3.2-postgresql-metastore
-    container_name: hive-metastore
     environment:
-      - HIVE_METASTORE_DB_TYPE=postgres
       - HIVE_METASTORE_URI=thrift://hive-metastore:9083
     depends_on:
       - postgres
@@ -16,7 +25,6 @@ services:
 
   hive-server:
     image: bde2020/hive:2.3.2
-    container_name: hive-server
     environment:
       - HIVE_METASTORE_URI=thrift://hive-metastore:9083
     depends_on:
@@ -26,42 +34,26 @@ services:
     networks:
       - hive-net
 
-  postgres:
-    image: postgres:13
-    container_name: hive-postgres
-    environment:
-      - POSTGRES_USER=hive
-      - POSTGRES_PASSWORD=hive
-      - POSTGRES_DB=metastore
-    ports:
-      - "5432:5432"
-    networks:
-      - hive-net
-
   spark:
     image: bitnami/spark:3.5.1
-    container_name: spark
     environment:
       - SPARK_MODE=master
     ports:
-      - "7077:7077"   
-      - "8080:8080"   
+      - "7077:7077"
+      - "8080:8080"
     networks:
       - hive-net
 
   marketplace-api:
     build: .
-    container_name: marketplace-api
     ports:
       - "8000:8000"
-    networks:
-      - hive-net
     depends_on:
       - spark
     volumes:
       - ./data:/app/data
-
-    
+    networks:
+      - hive-net
 
 networks:
   hive-net:
