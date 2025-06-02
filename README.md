@@ -128,8 +128,3 @@ python
 >>> df.show()
 ```
 
----
-
-## 📄 License
-
-MIT License (2025)
