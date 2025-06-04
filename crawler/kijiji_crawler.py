@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 from datetime import datetime
+import os
 
 
 # Fetch the search results page
@@ -54,7 +55,16 @@ if __name__ == "__main__":
     print("🔍 Extracting listings...")
     listings = extract_kijiji_listings(soup)
 
-    with open("../data/raw/listings.json", "w") as f:
+    # Determine absolute path to listings.json
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_path = os.path.join(base_dir, "..", "data", "raw", "listings.json")
+
+    # Ensure the parent directory exists
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
+
+    # Save the file
+    with open(output_path, "w") as f:
         json.dump(listings, f, indent=2)
+
 
     print(f"✅ Saved {len(listings)} listings to data/raw/listings.json")
