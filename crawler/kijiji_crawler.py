@@ -54,7 +54,7 @@ if __name__ == "__main__":
     print("🔍 Extracting listings...")
     listings = extract_kijiji_listings(soup)
 
-    with open("data/raw/listings.json", "w") as f:
+    with open("../data/raw/listings.json", "w") as f:
         json.dump(listings, f, indent=2)
 
     print(f"✅ Saved {len(listings)} listings to data/raw/listings.json")
