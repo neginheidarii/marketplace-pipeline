@@ -1,9 +1,19 @@
+# FastAPI & server
 fastapi
-uvicorn
+uvicorn[standard]
+
+# Spark and data processing
 pyspark
 pandas
 pyarrow
-pyhive
+
+# Hive + SQL access
+pyhive[hive]
 thrift
-sasl
 thrift-sasl
+pure-sasl  # use this instead of `sasl` for macOS ARM64
+
+# HTML parsing and web scraping
+beautifulsoup4
+requests
+bs4
