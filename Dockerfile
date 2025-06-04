@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install Java and system-level build tools
 RUN apt-get update && apt-get install -y \
-    openjdk-11-jdk \
+    openjdk-11-jre-headless \
     python3-dev \
     build-essential \
     libsasl2-dev \
