@@ -56,10 +56,8 @@ services:
       - hive-net
     depends_on:
       - spark
+      - hive-metastore
     volumes:
       - ./data:/app/data
-
-    
-
 networks:
   hive-net:
