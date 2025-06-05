@@ -4,7 +4,7 @@ from pyspark.sql import SparkSession
 spark = SparkSession.builder \
     .appName("RegisterHiveTable") \
     .config("spark.sql.catalogImplementation", "hive") \
-    .config("hive.metastore.uris", "thrift://localhost:9083") \
+    .config("hive.metastore.uris", "thrift://hive-metastore:9083") \
     .enableHiveSupport() \
     .getOrCreate()
 
